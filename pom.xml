@@ -8,5 +8,22 @@
     <artifactId>live_account</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <mybatis.version>3.2.8</mybatis.version>
+        <mysql-connector-java.version>5.1.20</mysql-connector-java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
