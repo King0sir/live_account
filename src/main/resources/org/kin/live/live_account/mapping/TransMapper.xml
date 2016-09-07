@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.kin.live.live_account.dao.TransMapper" >
+  <resultMap id="BaseResultMap" type="org.kin.live.live_account.domain.Trans" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="trans_amt" property="transAmt" jdbcType="DECIMAL" />
+    <result column="payer_id" property="payerId" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="divide_to" property="divideTo" jdbcType="INTEGER" />
+    <result column="per_amt" property="perAmt" jdbcType="DECIMAL" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, trans_amt, payer_id, group_id, pay_time, divide_to, per_amt, memo, image
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.kin.live.live_account.domain.TransExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trans
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trans
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.kin.live.live_account.domain.TransExample" >
+    delete from trans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.kin.live.live_account.domain.Trans" >
+    insert into trans (id, trans_amt, payer_id, 
+      group_id, pay_time, divide_to, 
+      per_amt, memo, image
+      )
+    values (#{id,jdbcType=INTEGER}, #{transAmt,jdbcType=DECIMAL}, #{payerId,jdbcType=VARCHAR}, 
+      #{groupId,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{divideTo,jdbcType=INTEGER}, 
+      #{perAmt,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.kin.live.live_account.domain.Trans" >
+    insert into trans
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="transAmt != null" >
+        trans_amt,
+      </if>
+      <if test="payerId != null" >
+        payer_id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="divideTo != null" >
+        divide_to,
+      </if>
+      <if test="perAmt != null" >
+        per_amt,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="transAmt != null" >
+        #{transAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="payerId != null" >
+        #{payerId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="divideTo != null" >
+        #{divideTo,jdbcType=INTEGER},
+      </if>
+      <if test="perAmt != null" >
+        #{perAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.kin.live.live_account.domain.TransExample" resultType="java.lang.Integer" >
+    select count(*) from trans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update trans
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.transAmt != null" >
+        trans_amt = #{record.transAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payerId != null" >
+        payer_id = #{record.payerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.divideTo != null" >
+        divide_to = #{record.divideTo,jdbcType=INTEGER},
+      </if>
+      <if test="record.perAmt != null" >
+        per_amt = #{record.perAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update trans
+    set id = #{record.id,jdbcType=INTEGER},
+      trans_amt = #{record.transAmt,jdbcType=DECIMAL},
+      payer_id = #{record.payerId,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=VARCHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      divide_to = #{record.divideTo,jdbcType=INTEGER},
+      per_amt = #{record.perAmt,jdbcType=DECIMAL},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.kin.live.live_account.domain.Trans" >
+    update trans
+    <set >
+      <if test="transAmt != null" >
+        trans_amt = #{transAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="payerId != null" >
+        payer_id = #{payerId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="divideTo != null" >
+        divide_to = #{divideTo,jdbcType=INTEGER},
+      </if>
+      <if test="perAmt != null" >
+        per_amt = #{perAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.kin.live.live_account.domain.Trans" >
+    update trans
+    set trans_amt = #{transAmt,jdbcType=DECIMAL},
+      payer_id = #{payerId,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      divide_to = #{divideTo,jdbcType=INTEGER},
+      per_amt = #{perAmt,jdbcType=DECIMAL},
+      memo = #{memo,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

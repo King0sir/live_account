@@ -12,3 +12,4 @@
 hs_err_pid*
 .idea/
 live_account.iml
+target/

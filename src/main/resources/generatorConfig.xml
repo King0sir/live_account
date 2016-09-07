@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry location="/home/kingsir/.m2/repository/mysql/mysql-connector-java/5.1.20"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/live_account"
+                        userId="root"
+                        password="ZPlNypc5"></jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--生成实体类的包名和位置，这里配置将生成的实体类放在com.domain这个包下-->
+        <javaModelGenerator targetPackage="org.kin.live.live_account.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimString" value="true"/>
+        </javaModelGenerator>
+        <!--生成的SQL映射文件包名和位置-->
+        <sqlMapGenerator targetPackage="org.kin.live.live_account.mapping" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.kin.live.live_account.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table schema="" tableName="user" domainObjectName="User">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table schema="" tableName="group" domainObjectName="Group">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table schema="" tableName="trans" domainObjectName="Trans">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table schema="" tableName="trans_ext" domainObjectName="TransExt">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+    </context>
+</generatorConfiguration>
