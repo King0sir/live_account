@@ -123,6 +123,7 @@
 
 
     <build>
+        <finalName>live_account</finalName>
         <plugins>
             <!--
             <plugin>
