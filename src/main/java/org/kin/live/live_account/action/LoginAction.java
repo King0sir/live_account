@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginAction {
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest request,String user,String password){
+    public String login(HttpServletRequest request){
+        String user = request.getParameter("user");
+        String password = request.getParameter("password");
         System.out.println("user:"+user+" pass:"+password);
         return "redirect:/index";
     }

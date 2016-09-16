@@ -11,7 +11,7 @@ public class TestAction {
 
     @RequestMapping(value = {"index",""})
     public String index(){
-        return "redirect:/index2";
+        return "index";
     }
 
     @RequestMapping(value = "index2")
