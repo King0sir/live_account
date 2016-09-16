@@ -3,6 +3,7 @@ package org.kin.live.live_account.action;
 import org.kin.live.live_account.dao.UserMapper;
 import org.kin.live.live_account.domain.User;
 import org.kin.live.live_account.util.MD5Util;
+import org.kin.live.live_account.util.PassUtil;
 import org.kin.live.live_account.util.SeriaNumberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -59,7 +60,7 @@ public class RegisterAction {
             nickName = new String(nickName.getBytes("8859_1"),"utf8");
 
             String userId = SeriaNumberUtil.getSerialNumberByTimeUUID(18);
-            String realPass = this.getPass(userId,pass);
+            String realPass = PassUtil.getPass(userId,pass);
 
             User user = new User();
             user.setEmail(email);
@@ -77,10 +78,4 @@ public class RegisterAction {
         return new User();
     }
 
-    private String getPass(String userId,String pass){
-        String str = userId + pass.length() + pass;
-        String md5pass = MD5Util.encryptMD5(str);
-        System.out.println(md5pass);
-        return md5pass;
-    }
 }
