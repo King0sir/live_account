@@ -34,6 +34,7 @@ public class LoginAction {
             return "密码错误";
         }
 
+        request.setAttribute("user",user);
         return "user/admin";
     }
 
