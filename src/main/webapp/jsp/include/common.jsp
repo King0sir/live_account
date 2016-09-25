@@ -4,4 +4,4 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<script src="../../resources/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.js"></script>
