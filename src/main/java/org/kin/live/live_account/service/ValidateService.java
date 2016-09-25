@@ -18,5 +18,13 @@ public class ValidateService {
 
     public void validateUserId(String userId) throws BaseException{
         User user = userMapper.selectByPrimaryKey(userId);
+        if(user == null){
+            //TODO:空数据异常处理
+            throw new BaseException();
+        }
+        if(user.getEnable() == 0){
+            //TODO:用户不可用异常处理
+            throw new BaseException();
+        }
     }
 }
