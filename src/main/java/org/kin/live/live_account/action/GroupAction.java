@@ -1,7 +1,7 @@
 package org.kin.live.live_account.action;
 
-import org.kin.live.live_account.dao.GroupMapper;
-import org.kin.live.live_account.domain.Group;
+import org.kin.live.live_account.dao.GroupsMapper;
+import org.kin.live.live_account.domain.Groups;
 import org.kin.live.live_account.except.BaseException;
 import org.kin.live.live_account.pojo.PageResult;
 import org.kin.live.live_account.service.ValidateService;
@@ -25,27 +25,26 @@ public class GroupAction {
     private ValidateService validateService;
 
     @Resource
-    private GroupMapper groupMapper;
+    private GroupsMapper groupsMapper;
 
     @ResponseBody
     @RequestMapping("/create")
     public PageResult createGroup(HttpServletRequest request, String userId, String groupName){
         try {
             validateService.validateUserId(userId);
-            Group group = this.getUser(userId,groupName);
-            groupMapper.insertSelective(group);
+            Groups groups = this.getGroups(userId,groupName);
+            groupsMapper.insertSelective(groups);
             return PageResult.getSuccess();
         } catch (BaseException e) {
             e.printStackTrace();
-            return PageResult.getFail(e.getMessage());
+            return PageResult.getFail(e);
         }
-//        return PageResult.getSuccess();
     }
 
-    private Group getUser(String userId,String groupName){
+    private Groups getGroups(String userId,String groupName){
         String groupId = SeriaNumberUtil.getSerialNumberByTimeUUID(16);
 
-        Group group = new Group();
+        Groups group = new Groups();
         group.setId(groupId);
         group.setEnable(1);
         group.setName(groupName);

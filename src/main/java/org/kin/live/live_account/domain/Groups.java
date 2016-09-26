@@ -2,7 +2,7 @@ package org.kin.live.live_account.domain;
 
 import java.util.Date;
 
-public class Group {
+public class Groups {
     private String id;
 
     private String name;

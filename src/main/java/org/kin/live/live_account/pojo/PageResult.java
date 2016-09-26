@@ -1,5 +1,7 @@
 package org.kin.live.live_account.pojo;
 
+import org.kin.live.live_account.except.BaseException;
+
 /**
  * Created by kingsir on 16-9-25.
  */
@@ -51,6 +53,10 @@ public class PageResult {
 
     public static PageResult getFail(){
         return new PageResult(fail);
+    }
+
+    public static PageResult getFail(BaseException except){
+        return new PageResult(fail,except.getMessage());
     }
 
     public static PageResult getFail(String message){

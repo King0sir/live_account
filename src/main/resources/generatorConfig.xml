@@ -36,7 +36,7 @@
         <table schema="" tableName="user" domainObjectName="User">
             <property name="useActualColumnNames" value="false"/>
         </table>
-        <table schema="" tableName="group" domainObjectName="Group">
+        <table schema="" tableName="groups" domainObjectName="Groups">
             <property name="useActualColumnNames" value="false"/>
         </table>
         <table schema="" tableName="trans" domainObjectName="Trans">
