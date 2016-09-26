@@ -7,7 +7,6 @@ import org.kin.live.live_account.except.extend.UserException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by kingsir on 16-9-25.

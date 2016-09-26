@@ -28,7 +28,7 @@ public class DomainService {
         criteria.andUserIdEqualTo(userId);
         List<Groups> groupsList = groupsMapper.selectByExample(example);
         if(CollectionUtils.isEmpty(groupsList)){
-            BaseException.throwExcept(GroupsException.class, GroupsException.ExceptCode.NoGroup.getMessage());
+            return null;
         }
         return groupsList.get(0);
     }

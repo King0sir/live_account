@@ -19,19 +19,71 @@ minimum-scale=1.0, maximum-scale=2.0" />
     <div align="center">欢迎,${user.nickName}先生/女士</div>
     <div align="center">您的id为：${user.id}</div>
     <br/>
-    <div id="showGroup" align="center">您的小组为:${group.name}</div>
+    <div id="showGroup" align="center">您的小组为:${group.name}<br/><input type="button" value="查看成员" onclick="queryGroup()"/></div>
     <div id="newGroup" align="center">您当前暂无小组<br/><input type="button" value="创建小组" onclick="createGroup()"/>&nbsp;&nbsp;<input type="button" value="寻找小组" onclick="searchGroup()"/></div>
+    <br/>
+    <div id="detail" align="center">
+        <div align="center">至今为止您共消费过：<div style="color: red; display: inline"><h1 style="display:inline">12</h1></div> 元</div>
+        <div align="center">记录下一笔消费：</div>
+        <form action="/group/create" method="post">
+            <table>
+                <tr>
+                    <td>时间</td>
+                    <td><input type="date" id="payTime" name="payTime"/></td>
+                </tr>
+                <tr>
+                    <td>金额(元)</td>
+                    <td><input type="text" id="transAmt" name="transAmt"></td>
+                </tr>
+                <tr>
+                    <td>付款人</td>
+                    <td>
+                        <select name="payer">
+                            <%--TODO:数据库赋值--%>
+                            <option value="14739999925004842">kin</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>分摊人</td>
+                    <td>
+                        <input type="checkbox" name="share" value="14739999925004842">kin
+                        <input type="checkbox" name="share" value="14739999925004842">kin
+                        <input type="checkbox" name="share" value="14739999925004842">kin
+                        <input type="checkbox" name="share" value="14739999925004842">kin
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注</td>
+                    <td><input type="text" id="memo" name="memo"></td>
+                </tr>
+                <tr>
+                    <td>图片(如有)</td>
+                    <td><input type="file" id="image" name="image" /></td>
+                </tr>
+            </table>
+            <br style="line-height: 8px"/>
+            <div align="center"><input type="submit" value="确 认 提 交"/></div>
+        </form>
+
+    </div>
 </body>
 </html>
 <script type="application/javascript">
     $(document).ready(function(){
+        init();
+    });
+
+    function init(){
         var groupId = '${group.id}';
         if(groupId == ''){
             $('#showGroup').hide();
+            $('#detail').hide();
         }else{
             $('#newGroup').hide();
         }
-    });
+        $('#payTime').val('2016-07-17');
+    }
 
     function createGroup(){
         var user = ${user.id};
@@ -51,5 +103,9 @@ minimum-scale=1.0, maximum-scale=2.0" />
                 location.reload(true);
             }
         });
+    }
+
+    function queryGroup(){
+        alert("查看成员：筹备中");
     }
 </script>
