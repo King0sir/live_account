@@ -11,6 +11,7 @@
 
     <properties>
         <aspectjweaver.version>1.8.5</aspectjweaver.version>
+        <com.fasterxml.jackson.version>2.1.0</com.fasterxml.jackson.version>
         <druid.version>1.0.12</druid.version>
         <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
         <javax.servlet.jsp-api.version>2.3.2-b01</javax.servlet.jsp-api.version>
@@ -133,6 +134,21 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${com.fasterxml.jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${com.fasterxml.jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${com.fasterxml.jackson.version}</version>
         </dependency>
     </dependencies>
 
