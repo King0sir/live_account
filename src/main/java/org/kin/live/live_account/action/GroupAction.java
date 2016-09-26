@@ -5,6 +5,7 @@ import org.kin.live.live_account.domain.Groups;
 import org.kin.live.live_account.except.BaseException;
 import org.kin.live.live_account.pojo.PageResult;
 import org.kin.live.live_account.service.ValidateService;
+import org.kin.live.live_account.util.DomainUtil;
 import org.kin.live.live_account.util.SeriaNumberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,25 +33,12 @@ public class GroupAction {
     public PageResult createGroup(HttpServletRequest request, String userId, String groupName){
         try {
             validateService.validateUserId(userId);
-            Groups groups = this.getGroups(userId,groupName);
+            Groups groups = DomainUtil.getGroups(userId,groupName);
             groupsMapper.insertSelective(groups);
             return PageResult.getSuccess();
         } catch (BaseException e) {
             e.printStackTrace();
             return PageResult.getFail(e);
         }
-    }
-
-    private Groups getGroups(String userId,String groupName){
-        String groupId = SeriaNumberUtil.getSerialNumberByTimeUUID(16);
-
-        Groups group = new Groups();
-        group.setId(groupId);
-        group.setEnable(1);
-        group.setName(groupName);
-        group.setCreateTime(new Date());
-        group.setUserId(userId);
-
-        return group;
     }
 }
