@@ -19,24 +19,12 @@ public class ValidateService {
     private UserMapper userMapper;
 
     public void validateUserId(String userId) throws BaseException{
-
-        try {
-            User user = userMapper.selectByPrimaryKey(userId);
-            if(user == null){
-                BaseException.throwExcept(UserException.class,UserException.ExceptCode.NoUser.getMessage());
-            }
-            if(user.getEnable() == 0){
-                BaseException.throwExcept(UserException.class,UserException.ExceptCode.NoEnableUser.getMessage());
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(user == null){
+            BaseException.throwExcept(UserException.class,UserException.ExceptCode.NoUser.getMessage());
         }
-
+        if(user.getEnable() == 0){
+            BaseException.throwExcept(UserException.class,UserException.ExceptCode.NoEnableUser.getMessage());
+        }
     }
 }

@@ -22,14 +22,36 @@ public abstract class BaseException extends Exception{
     }
 
     public static <T extends BaseException> void throwExcept(Class<T> tClass,String message)
-            throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        Method throwThisException = tClass.getMethod("throwThisException",message.getClass());
-        throwThisException.invoke(tClass.newInstance(),message);
+            throws BaseException{
+        Method throwThisException = null;
+        try {
+            throwThisException = tClass.getMethod("throwThisException",message.getClass());
+            throwThisException.invoke(tClass.newInstance(),message);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public static <T extends BaseException> void throwExcept(Class<T> tClass)
-            throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        Method throwThisException = tClass.getMethod("throwThisException");
-        throwThisException.invoke(tClass.newInstance());
+            throws BaseException{
+        Method throwThisException = null;
+        try {
+            throwThisException = tClass.getMethod("throwThisException");
+            throwThisException.invoke(tClass.newInstance());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

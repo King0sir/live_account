@@ -48,9 +48,8 @@ minimum-scale=1.0, maximum-scale=2.0" />
             success: function(data) {
                 alert(data);
                 console.log(data);
+                location.reload(true);
             }
         });
-//        TODO:返回字段为json的时候如何获取，或者返回object
-//        location.reload(true);
     }
 </script>

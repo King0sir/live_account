@@ -1,8 +1,11 @@
 package org.kin.live.live_account.action;
 
 import org.kin.live.live_account.dao.UserMapper;
+import org.kin.live.live_account.domain.Groups;
 import org.kin.live.live_account.domain.User;
 import org.kin.live.live_account.domain.UserExample;
+import org.kin.live.live_account.except.BaseException;
+import org.kin.live.live_account.service.DomainService;
 import org.kin.live.live_account.util.PassUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -19,10 +22,13 @@ import java.util.List;
 public class LoginAction {
 
     @Resource
+    private DomainService domainService;
+
+    @Resource
     private UserMapper userMapper;
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest request){
+    public String login(HttpServletRequest request) throws BaseException {
         String userStr = request.getParameter("user");
         String password = request.getParameter("password");
         User user = this.getUser(userStr);
@@ -34,6 +40,9 @@ public class LoginAction {
             return "密码错误";
         }
 
+        Groups groups = domainService.queryGroupsByUserId(user.getId());
+
+        request.setAttribute("group",groups);
         request.setAttribute("user",user);
         return "user/admin";
     }
