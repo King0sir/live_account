@@ -1,7 +1,5 @@
 package org.kin.live.live_account.pojo;
 
-import com.alibaba.fastjson.JSON;
-
 /**
  * Created by kingsir on 16-9-25.
  */
@@ -57,9 +55,5 @@ public class PageResult {
 
     public static PageResult getFail(String message){
         return new PageResult(fail,message);
-    }
-
-    public String toString(){
-        return JSON.toJSONString(this,false);
     }
 }

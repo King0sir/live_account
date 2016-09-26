@@ -2,13 +2,13 @@ package org.kin.live.live_account.action;
 
 import org.kin.live.live_account.dao.GroupMapper;
 import org.kin.live.live_account.domain.Group;
-import org.kin.live.live_account.domain.User;
 import org.kin.live.live_account.except.BaseException;
 import org.kin.live.live_account.pojo.PageResult;
 import org.kin.live.live_account.service.ValidateService;
 import org.kin.live.live_account.util.SeriaNumberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +27,7 @@ public class GroupAction {
     @Resource
     private GroupMapper groupMapper;
 
+    @ResponseBody
     @RequestMapping("/create")
     public PageResult createGroup(HttpServletRequest request, String userId, String groupName){
         try {
@@ -38,6 +39,7 @@ public class GroupAction {
             e.printStackTrace();
             return PageResult.getFail(e.getMessage());
         }
+//        return PageResult.getSuccess();
     }
 
     private Group getUser(String userId,String groupName){

@@ -40,9 +40,17 @@ minimum-scale=1.0, maximum-scale=2.0" />
         jQuery.ajax({
             url:"group/create?userId="+user+"&groupName="+groupName+"",
             data:"",
-            type:"GET"
+            type:"GET",
+            error: function(data) {
+                alert(data);
+                console.log(data);
+            },
+            success: function(data) {
+                alert(data);
+                console.log(data);
+            }
         });
 //        TODO:返回字段为json的时候如何获取，或者返回object
-        location.reload(true);
+//        location.reload(true);
     }
 </script>
