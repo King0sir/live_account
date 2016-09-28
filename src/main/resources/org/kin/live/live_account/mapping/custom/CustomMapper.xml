@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.kin.live.live_account.dao.custom.CustomMapper">
+
+    <resultMap id="simpleUser" type="org.kin.live.live_account.pojo.SimpleUser">
+        <result column="id" property="userId" jdbcType="VARCHAR"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectSimpleUserByGroups" parameterType="java.lang.String" resultMap="simpleUser" useCache="true">
+        SELECT "user".id AS id,"user".nick_name AS nick_name FROM "groups"
+        INNER JOIN "user" ON "groups".user_id = "user".id
+        WHERE "groups".id = #{groupId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
