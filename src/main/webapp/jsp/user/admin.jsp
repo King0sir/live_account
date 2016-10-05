@@ -38,20 +38,13 @@ minimum-scale=1.0, maximum-scale=2.0" />
                 <tr>
                     <td>付款人</td>
                     <td>
-                        <select name="payer" id="payer">
-                            TODO:数据库赋值
-                            <option value="14739999925004842">kin</option>
-                        </select>
-
+                        <select name="payer" id="payer"/>
                     </td>
                 </tr>
                 <tr>
                     <td>分摊人</td>
                     <td>
-                        <input type="checkbox" name="share" value="14739999925004842">kin
-                        <input type="checkbox" name="share" value="14739999925004842">kin
-                        <input type="checkbox" name="share" value="14739999925004842">kin
-                        <input type="checkbox" name="share" value="14739999925004842">kin
+                        <div id="share"/>
                     </td>
                 </tr>
                 <tr>
@@ -93,9 +86,21 @@ minimum-scale=1.0, maximum-scale=2.0" />
         //Add Select
         var selectItemList = '${simpleUserList}';
         var json = JSON.parse(selectItemList);
+        //Add checkbox
+        var check = $('#share');
         for(var i=0;i< json.length;i++){
+            //select
             var option = new Option(json[i].nickName,json[i].userId);
             $('#payer').append(option);
+
+            //chekcbox
+            var checkbox = document.createElement("input");
+            checkbox.setAttribute("type","checkbox");
+            checkbox.setAttribute("id",json[i].userId);
+            checkbox.setAttribute("name","share");
+            check.append(checkbox);
+            check.append(json[i].nickName);
+
         }
     }
 
