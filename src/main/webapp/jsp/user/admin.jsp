@@ -25,7 +25,7 @@ minimum-scale=1.0, maximum-scale=2.0" />
     <div id="detail" align="center">
         <div align="center">至今为止您共消费过：<div style="color: red; display: inline"><h1 style="display:inline">12</h1></div> 元</div>
         <div align="center">记录下一笔消费：</div>
-        <form action="/group/create" method="post">
+        <form action="/login" method="post">
             <table>
                 <tr>
                     <td>时间</td>
@@ -38,10 +38,11 @@ minimum-scale=1.0, maximum-scale=2.0" />
                 <tr>
                     <td>付款人</td>
                     <td>
-                        <select name="payer">
-                            <%--TODO:数据库赋值--%>
+                        <select name="payer" id="payer">
+                            TODO:数据库赋值
                             <option value="14739999925004842">kin</option>
                         </select>
+
                     </td>
                 </tr>
                 <tr>
@@ -64,7 +65,11 @@ minimum-scale=1.0, maximum-scale=2.0" />
             </table>
             <br style="line-height: 8px"/>
             <div align="center"><input type="submit" value="确 认 提 交"/></div>
+            <%--<form:select path="name" items="${simpleUserList}"--%>
+                         <%--itemLabel="nickName" itemValue="userId">--%>
+            <%--</form:select>--%>
         </form>
+
 
     </div>
 </body>
@@ -75,6 +80,7 @@ minimum-scale=1.0, maximum-scale=2.0" />
     });
 
     function init(){
+        //Init Hide
         var groupId = '${group.id}';
         if(groupId == ''){
             $('#showGroup').hide();
@@ -83,6 +89,14 @@ minimum-scale=1.0, maximum-scale=2.0" />
             $('#newGroup').hide();
         }
         $('#payTime').val('2016-07-17');
+
+        //Add Select
+        var selectItemList = '${simpleUserList}';
+        var json = JSON.parse(selectItemList);
+        for(var i=0;i< json.length;i++){
+            var option = new Option(json[i].nickName,json[i].userId);
+            $('#payer').append(option);
+        }
     }
 
     function createGroup(){
