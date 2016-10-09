@@ -3,6 +3,7 @@ package org.kin.live.live_account.service;
 import org.kin.live.live_account.dao.UserMapper;
 import org.kin.live.live_account.domain.User;
 import org.kin.live.live_account.except.BaseException;
+import org.kin.live.live_account.except.extend.TransException;
 import org.kin.live.live_account.except.extend.UserException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,14 +30,23 @@ public class ValidateService {
         }
     }
 
-    public void transParamsValidate(HttpServletRequest request){
+    public void transParamsValidate(HttpServletRequest request) throws TransException {
         String payTime = request.getParameter("payTime");
         String transAmt = request.getParameter("transAmt");
         String payerId = request.getParameter("payer");
         String shares = request.getParameter("shares");
         String memo = request.getParameter("memo");
         if(StringUtils.isEmpty(payTime)){
-//            throw new BaseException();
+            throw BaseException.getException(TransException.class,TransException.ExceptCode.NoLegalPayTime.getMessage());
+        }
+        if(StringUtils.isEmpty(transAmt)){
+            throw BaseException.getException(TransException.class,TransException.ExceptCode.NoLegalTransAmt.getMessage());
+        }
+        if(StringUtils.isEmpty(payerId)){
+            throw BaseException.getException(TransException.class,TransException.ExceptCode.NoLegalPayerId.getMessage());
+        }
+        if(StringUtils.isEmpty(shares)){
+            throw BaseException.getException(TransException.class,TransException.ExceptCode.NoLegalShares.getMessage());
         }
     }
 }
