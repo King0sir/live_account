@@ -2,6 +2,7 @@ package org.kin.live.live_account.dao.custom;
 
 import org.kin.live.live_account.pojo.SimpleUser;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -10,4 +11,6 @@ import java.util.List;
 public interface CustomMapper {
 
     public List<SimpleUser> selectSimpleUserByGroups(String groupId);
+
+    public BigDecimal getTotalAmt(String userId);
 }

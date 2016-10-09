@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,5 +70,9 @@ public class DomainService {
             simpleUserList = customMapper.selectSimpleUserByGroups(groupId);
         }
         return simpleUserList;
+    }
+
+    public BigDecimal totalPayAmt(String userId){
+        return customMapper.getTotalAmt(userId);
     }
 }

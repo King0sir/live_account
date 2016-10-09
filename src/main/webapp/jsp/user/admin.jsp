@@ -23,7 +23,7 @@ minimum-scale=1.0, maximum-scale=2.0" />
     <div id="newGroup" align="center">您当前暂无小组<br/><input type="button" value="创建小组" onclick="createGroup()"/>&nbsp;&nbsp;<input type="button" value="寻找小组" onclick="searchGroup()"/></div>
     <br/>
     <div id="detail" align="center">
-        <div align="center">至今为止您共消费过：<div style="color: red; display: inline"><h1 style="display:inline">12</h1></div> 元</div>
+        <div align="center">至今为止您共消费过：<div style="color: red; display: inline"><h1 style="display:inline">${totalPayAmt}</h1></div> 元</div>
         <div align="center">记录下一笔消费：</div>
         <form action="/live_account/trans/newTrans" method="post">
             <table>
