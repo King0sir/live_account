@@ -1,5 +1,6 @@
 package org.kin.live.live_account.except;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -19,6 +20,22 @@ public abstract class BaseException extends Exception{
     public static <T extends BaseException> T getException(Class<T> tClass)
             throws IllegalAccessException, InstantiationException {
         return tClass.newInstance();
+    }
+
+    public static <T extends BaseException> T getException(Class<T> tClass,String message){
+        try {
+            Constructor<T> constructor = tClass.getConstructor(String.class);
+            return constructor.newInstance(message);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static <T extends BaseException> void throwExcept(Class<T> tClass,String message)
