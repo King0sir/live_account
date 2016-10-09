@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -33,24 +34,22 @@ public class TransAction {
 
     @RequestMapping("/newTrans")
     public String newTrans(HttpServletRequest request) throws BaseException{
-        String payTime = request.getParameter("payTime");
-        System.out.println(payTime);
         validateService.transParamsValidate(request);
 
         this.saveTrans(request);
 
-        return "aaa";
+        return "user/finish";
     }
 
     private void saveTrans(HttpServletRequest request){
-        String payTimeStr = request.getParameter("payTime");
-        String transAmtStr = request.getParameter("transAmt");
-        String payerId = request.getParameter("payer");
-        String shares = request.getParameter("shares");
-        String memo = request.getParameter("memo");
-        String groupId = request.getParameter("groupId");
-
         try {
+            String payTimeStr = request.getParameter("payTime");
+            String transAmtStr = request.getParameter("transAmt");
+            String payerId = request.getParameter("payer");
+            String shares = request.getParameter("shares");
+            String memo = request.getParameter("memo");
+            String groupId = request.getParameter("groupId");
+
             Date payTime = DateUtil.getDate(payTimeStr,DateUtil.DATE_FORMAT_SHORT);
             BigDecimal transAmt = new BigDecimal(transAmtStr).multiply(new BigDecimal(100));
             String[] shareArray = shares.split(",");
@@ -61,7 +60,7 @@ public class TransAction {
             trans.setMemo(memo);
             trans.setPayerId(payerId);
             trans.setPayTime(payTime);
-            trans.setPerAmt(transAmt.divide(new BigDecimal(shareArray.length)));
+            trans.setPerAmt(transAmt.divide(new BigDecimal(shareArray.length),2, RoundingMode.HALF_UP));
             trans.setTransAmt(transAmt);
             transMapper.insertSelective(trans);
 
