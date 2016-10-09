@@ -25,7 +25,7 @@ minimum-scale=1.0, maximum-scale=2.0" />
     <div id="detail" align="center">
         <div align="center">至今为止您共消费过：<div style="color: red; display: inline"><h1 style="display:inline">12</h1></div> 元</div>
         <div align="center">记录下一笔消费：</div>
-        <form action="/login" method="post">
+        <form action="/live_account/trans/newTrans" method="post">
             <table>
                 <tr>
                     <td>时间</td>
@@ -45,6 +45,7 @@ minimum-scale=1.0, maximum-scale=2.0" />
                     <td>分摊人</td>
                     <td>
                         <div id="share"/>
+                        <input type="hidden" id="shares" name="shares"/>
                     </td>
                 </tr>
                 <tr>
@@ -57,7 +58,8 @@ minimum-scale=1.0, maximum-scale=2.0" />
                 </tr>
             </table>
             <br style="line-height: 8px"/>
-            <div align="center"><input type="submit" value="确 认 提 交"/></div>
+            <input type="hidden" id="groupId" name="groupId" value="${group.id}"/>
+            <div align="center"><input type="submit" value="确 认 提 交" onclick="beforeSubmit()"/></div>
             <%--<form:select path="name" items="${simpleUserList}"--%>
                          <%--itemLabel="nickName" itemValue="userId">--%>
             <%--</form:select>--%>
@@ -126,5 +128,18 @@ minimum-scale=1.0, maximum-scale=2.0" />
 
     function queryGroup(){
         alert("查看成员：筹备中");
+    }
+
+    function beforeSubmit(){
+        var checkboxs = document.getElementsByName("share");
+        var shares = "";
+        for(var i = 0;i<checkboxs.length;i++){
+            if(checkboxs[i].checked == true){
+                shares = shares + checkboxs[i].id + ",";
+            }
+        }
+        shares = shares.substring(0,shares.length-1);
+        $('#shares').val(shares);
+        return true;
     }
 </script>

@@ -35,7 +35,7 @@ public class LoginAction {
             return "密码错误";
         }
 
-        Groups groups = domainService.queryGroupsByUserId(user.getId());
+        Groups groups = this.getGroupsById(user.getId());
 
         List<SimpleUser> simpleUserList = this.getOptionList(groups.getId());
 
@@ -43,6 +43,10 @@ public class LoginAction {
         request.setAttribute("group",groups);
         request.setAttribute("user",user);
         return "user/admin";
+    }
+
+    private Groups getGroupsById(String userId) throws BaseException {
+        return domainService.queryGroupsByUserId(userId);
     }
 
     private List<SimpleUser> getOptionList(String groupId){
