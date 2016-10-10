@@ -131,7 +131,7 @@ minimum-scale=1.0, maximum-scale=2.0" />
 
     function searchGroup(){
         alert("筹备中");
-        
+        location.href="group/search";
     }
 
     function queryGroup(){

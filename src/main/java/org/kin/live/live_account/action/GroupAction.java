@@ -46,6 +46,11 @@ public class GroupAction {
         }
     }
 
+    @RequestMapping("/search")
+    public String searchGroup(HttpServletRequest request){
+        return "group/search";
+    }
+
     @RequestMapping("/member")
     public String queryMember(HttpServletRequest request,String groupId) throws BaseException {
         System.out.println(groupId);
