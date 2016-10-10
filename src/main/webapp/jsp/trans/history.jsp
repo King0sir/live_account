@@ -26,9 +26,9 @@ minimum-scale=1.0, maximum-scale=2.0" />
                 <td>备注</td>
             </tr>
             <tr>
-                <td><input type="button" value="上一页" onclick=""/> </td>
-                <td colspan="2"><div align="center">第 ${pageTool.totalCount} 页</div></td>
-                <td><input type="button" value="下一页" onclick=""/> </td>
+                <td><input type="button" value="上一页" onclick="newPage(${pageTool.page}-1)"/> </td>
+                <td colspan="2"><div align="center">第 ${pageTool.page} / ${pageTool.totalPage} 页</div></td>
+                <td><input type="button" value="下一页" onclick="newPage(${pageTool.page}+1)"/> </td>
             </tr>
         </table>
     </div>
@@ -59,6 +59,14 @@ minimum-scale=1.0, maximum-scale=2.0" />
             return;
         }
         $tr.after(trHtml);
+    }
+
+    function newPage(page){
+        var totalPage = ${pageTool.totalPage};
+        if( page >= 1 && page <= totalPage){
+            var userId = '${user.id}';
+            location.href="trans/history?userId="+userId+"&page="+page;
+        }
     }
 </script>
 </html>

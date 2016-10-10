@@ -49,11 +49,12 @@ public class TransAction {
     }
 
     @RequestMapping("/history")
-    public String history(HttpServletRequest request,String userId) throws BaseException{
+    public String history(HttpServletRequest request,String userId,Integer page) throws BaseException{
         System.out.println(userId);
         User user = domainService.getUserById(userId);
 
         PageTool pageTool = new PageTool();
+        pageTool.setPage(page);
         List<HisTrans> hisTransList = domainService.getTransOfOnePage(userId,pageTool);
 
         request.setAttribute("user",user);

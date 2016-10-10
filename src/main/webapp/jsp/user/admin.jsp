@@ -148,6 +148,6 @@ minimum-scale=1.0, maximum-scale=2.0" />
 
     function queryTrans(){
         var userId = '${user.id}';
-        location.href="trans/history?userId="+userId;
+        location.href="trans/history?userId="+userId+"&page=1";
     }
 </script>
