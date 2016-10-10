@@ -2,10 +2,12 @@ package org.kin.live.live_account.pojo;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by kingsir on 16-9-27.
  */
-public class SimpleUser {
+public class SimpleUser implements Serializable{
 
     private String userId;
 

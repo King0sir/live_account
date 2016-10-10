@@ -10,6 +10,8 @@ import org.kin.live.live_account.domain.UserExample;
 import org.kin.live.live_account.except.BaseException;
 import org.kin.live.live_account.except.extend.GroupsException;
 import org.kin.live.live_account.except.extend.UserException;
+import org.kin.live.live_account.pojo.HisTrans;
+import org.kin.live.live_account.pojo.PageTool;
 import org.kin.live.live_account.pojo.SimpleUser;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -17,7 +19,9 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kingsir on 16-9-26.
@@ -76,6 +80,10 @@ public class DomainService {
         return userList;
     }
 
+    public User getUserById(String userId){
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
     public User getUser(String user){
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
@@ -109,5 +117,21 @@ public class DomainService {
 
     public BigDecimal totalPayAmt(String userId){
         return customMapper.getTotalAmt(userId);
+    }
+
+    public List<HisTrans> getTransOfOnePage(String userId, PageTool pageTool){
+        Map map = new HashMap();
+        map.put("userId",userId);
+        map.put("startIndex",pageTool.getStartIndex());
+        map.put("count",pageTool.getCount());
+
+        Integer total = customMapper.hisTransCount(map);
+        pageTool.setTotalCount(total);
+
+        List<HisTrans> hisTransList = customMapper.hisTrans(map);
+        if(CollectionUtils.isEmpty(hisTransList)){
+            return new ArrayList<HisTrans>();
+        }
+        return hisTransList;
     }
 }

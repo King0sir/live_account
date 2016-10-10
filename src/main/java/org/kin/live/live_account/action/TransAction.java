@@ -4,7 +4,11 @@ import org.kin.live.live_account.dao.TransExtMapper;
 import org.kin.live.live_account.dao.TransMapper;
 import org.kin.live.live_account.domain.Trans;
 import org.kin.live.live_account.domain.TransExt;
+import org.kin.live.live_account.domain.User;
 import org.kin.live.live_account.except.BaseException;
+import org.kin.live.live_account.pojo.HisTrans;
+import org.kin.live.live_account.pojo.PageTool;
+import org.kin.live.live_account.service.DomainService;
 import org.kin.live.live_account.service.ValidateService;
 import org.kin.live.live_account.util.DateUtil;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by kingsir on 16-9-26.
@@ -26,6 +31,8 @@ public class TransAction {
 
     @Resource
     private ValidateService validateService;
+    @Resource
+    private DomainService domainService;
 
     @Resource
     private TransMapper transMapper;
@@ -44,6 +51,14 @@ public class TransAction {
     @RequestMapping("/history")
     public String history(HttpServletRequest request,String userId) throws BaseException{
         System.out.println(userId);
+        User user = domainService.getUserById(userId);
+
+        PageTool pageTool = new PageTool();
+        List<HisTrans> hisTransList = domainService.getTransOfOnePage(userId,pageTool);
+
+        request.setAttribute("user",user);
+        request.setAttribute("hisTransList",hisTransList);
+        request.setAttribute("pageTool",pageTool);
         return "trans/history";
     }
 
