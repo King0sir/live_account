@@ -109,7 +109,7 @@ public class DomainService {
 
     public List<SimpleUser> getUserList(String groupId){
         List<SimpleUser> simpleUserList = new ArrayList<>();
-        if(groupId == null){
+        if(groupId != null){
             simpleUserList = customMapper.selectSimpleUserByGroups(groupId);
         }
         return simpleUserList;

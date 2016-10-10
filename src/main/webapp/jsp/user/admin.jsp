@@ -111,21 +111,27 @@ minimum-scale=1.0, maximum-scale=2.0" />
     function createGroup(){
         var user = ${user.id};
         var groupName = prompt("创建小组","请输入你的小组名");
-        var result;
-        jQuery.ajax({
-            url:"group/create?userId="+user+"&groupName="+groupName+"",
-            data:"",
-            type:"GET",
-            error: function(data) {
-                alert(data);
-                console.log(data);
-            },
-            success: function(data) {
-                alert(data);
-                console.log(data);
-                location.reload(true);
-            }
-        });
+        if(groupName != null){
+            jQuery.ajax({
+                url:"group/create?userId="+user+"&groupName="+groupName+"",
+                data:"",
+                type:"GET",
+                error: function(data) {
+                    alert(data);
+                    console.log(data);
+                },
+                success: function(data) {
+                    alert(data);
+                    console.log(data);
+                    location.reload(true);
+                }
+            });
+        }
+    }
+
+    function searchGroup(){
+        alert("筹备中");
+        
     }
 
     function queryGroup(){

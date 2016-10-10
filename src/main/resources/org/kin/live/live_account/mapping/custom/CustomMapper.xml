@@ -8,9 +8,14 @@
     </resultMap>
 
     <select id="selectSimpleUserByGroups" parameterType="java.lang.String" resultMap="simpleUser" useCache="true">
-        SELECT "user".id AS id,"user".nick_name AS nick_name FROM "groups"
-        INNER JOIN "user" ON "groups".user_id = "user".id
-        WHERE "groups".id = #{groupId,jdbcType=VARCHAR}
+        SELECT
+	        `user`.id AS id,
+        	`user`.nick_name AS nick_name
+        FROM
+        	`groups`
+        INNER JOIN `user` ON `groups`.user_id = `user`.id
+        WHERE
+        	`groups`.id = #{groupId,jdbcType=VARCHAR}
     </select>
 
     <select id="getTotalAmt" parameterType="java.lang.String" resultType="java.math.BigDecimal">

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,10 @@ public class LoginAction {
         BigDecimal totalPayAmt = domainService.totalPayAmt(user.getId());
         totalPayAmt = totalPayAmt == null? BigDecimal.ZERO:totalPayAmt;
 
-        List<SimpleUser> simpleUserList = this.getOptionList(groups.getId());
+        List<SimpleUser> simpleUserList = new ArrayList<>();
+        if(groups != null){
+            simpleUserList = this.getOptionList(groups.getId());
+        }
 
         request.setAttribute("totalPayAmt",totalPayAmt.divide(new BigDecimal(100)));
         request.setAttribute("simpleUserList",simpleUserList);
@@ -56,8 +60,6 @@ public class LoginAction {
 
     private List<SimpleUser> getOptionList(String groupId){
         List<SimpleUser> userList = domainService.getUserList(groupId);
-        userList.add(new SimpleUser("123","123"));
-        userList.add(new SimpleUser("234","234"));
         return userList;
     }
 }
