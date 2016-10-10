@@ -41,6 +41,11 @@ public class TransAction {
         return "user/finish";
     }
 
+    @RequestMapping("/history")
+    public String history(HttpServletRequest request) throws BaseException{
+        return "trans/history";
+    }
+
     private void saveTrans(HttpServletRequest request){
         try {
             String payTimeStr = request.getParameter("payTime");

@@ -8,6 +8,8 @@ import org.kin.live.live_account.domain.GroupsExample;
 import org.kin.live.live_account.domain.User;
 import org.kin.live.live_account.domain.UserExample;
 import org.kin.live.live_account.except.BaseException;
+import org.kin.live.live_account.except.extend.GroupsException;
+import org.kin.live.live_account.except.extend.UserException;
 import org.kin.live.live_account.pojo.SimpleUser;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -39,6 +41,39 @@ public class DomainService {
             return null;
         }
         return groupsList.get(0);
+    }
+
+    public String queryGroupNameById(String groupId) throws BaseException{
+        Groups groups = groupsMapper.selectByPrimaryKey(groupId);
+        if(groups == null){
+            throw BaseException.getException(GroupsException.class,GroupsException.ExceptCode.NoGroup.getMessage());
+        }
+        return groups.getName();
+    }
+
+    public List<User> getUserFromGroupName(String groupName) throws BaseException{
+        GroupsExample example = new GroupsExample();
+        GroupsExample.Criteria criteria = example.createCriteria();
+        criteria.andNameEqualTo(groupName);
+        List<Groups> groupsList = groupsMapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(groupsList)){
+            throw BaseException.getException(GroupsException.class,GroupsException.ExceptCode.NoGroup.getMessage());
+        }
+
+        List<String> userIdList = new ArrayList<>();
+        for(Groups groups : groupsList){
+            userIdList.add(groups.getUserId());
+        }
+
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria1 = userExample.createCriteria();
+        criteria1.andIdIn(userIdList);
+        List<User> userList = userMapper.selectByExample(userExample);
+        if(CollectionUtils.isEmpty(userList)){
+            throw BaseException.getException(UserException.class,UserException.ExceptCode.NoUser.getMessage());
+        }
+
+        return userList;
     }
 
     public User getUser(String user){

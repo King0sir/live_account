@@ -24,6 +24,8 @@ minimum-scale=1.0, maximum-scale=2.0" />
     <br/>
     <div id="detail" align="center">
         <div align="center">至今为止您共消费过：<div style="color: red; display: inline"><h1 style="display:inline">${totalPayAmt}</h1></div> 元</div>
+        <div align="center"><input type="button" value="查看消费" onclick="queryTrans()"/></div>
+        <br/>
         <div align="center">记录下一笔消费：</div>
         <form action="/live_account/trans/newTrans" method="post">
             <table>
@@ -127,7 +129,8 @@ minimum-scale=1.0, maximum-scale=2.0" />
     }
 
     function queryGroup(){
-        alert("查看成员：筹备中");
+        var groupId = '${group.id}';
+        location.href="group/member?groupId="+groupId;
     }
 
     function beforeSubmit(){
@@ -141,5 +144,10 @@ minimum-scale=1.0, maximum-scale=2.0" />
         shares = shares.substring(0,shares.length-1);
         $('#shares').val(shares);
         return true;
+    }
+
+    function queryTrans(){
+        var userId = '${user.id}';
+        location.href="trans"
     }
 </script>

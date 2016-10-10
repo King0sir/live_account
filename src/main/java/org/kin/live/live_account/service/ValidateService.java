@@ -1,15 +1,21 @@
 package org.kin.live.live_account.service;
 
+import org.kin.live.live_account.dao.GroupsMapper;
 import org.kin.live.live_account.dao.UserMapper;
+import org.kin.live.live_account.domain.Groups;
+import org.kin.live.live_account.domain.GroupsExample;
 import org.kin.live.live_account.domain.User;
 import org.kin.live.live_account.except.BaseException;
+import org.kin.live.live_account.except.extend.GroupsException;
 import org.kin.live.live_account.except.extend.TransException;
 import org.kin.live.live_account.except.extend.UserException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by kingsir on 16-9-25.
@@ -19,6 +25,8 @@ public class ValidateService {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private GroupsMapper groupsMapper;
 
     public void validateUserId(String userId) throws BaseException{
         User user = userMapper.selectByPrimaryKey(userId);
@@ -28,6 +36,17 @@ public class ValidateService {
         if(user.getEnable() == 0){
             BaseException.throwExcept(UserException.class,UserException.ExceptCode.NoEnableUser.getMessage());
         }
+    }
+
+    public void validateGroupName(String groupName) throws BaseException{
+        GroupsExample example = new GroupsExample();
+        GroupsExample.Criteria criteria = example.createCriteria();
+        criteria.andNameEqualTo(groupName);
+        List<Groups> groupsList = groupsMapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(groupsList)){
+            return;
+        }
+        throw BaseException.getException(GroupsException.class,GroupsException.ExceptCode.ExistGroupName.getMessage());
     }
 
     public void transParamsValidate(HttpServletRequest request) throws TransException {

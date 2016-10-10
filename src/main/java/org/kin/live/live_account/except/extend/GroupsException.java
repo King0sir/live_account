@@ -26,7 +26,8 @@ public class GroupsException extends BaseException{
 
     public enum ExceptCode{
         NoGroup(1001,"没有对应小组"),
-        NoEnableUser(1002,"对应用户不可用");
+        NoEnableUser(1002,"对应用户不可用"),
+        ExistGroupName(1003,"小组名已经存在");
 
         private int code;
         private String message;
