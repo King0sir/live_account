@@ -42,7 +42,8 @@ public class TransAction {
     }
 
     @RequestMapping("/history")
-    public String history(HttpServletRequest request) throws BaseException{
+    public String history(HttpServletRequest request,String userId) throws BaseException{
+        System.out.println(userId);
         return "trans/history";
     }
 
