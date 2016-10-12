@@ -103,22 +103,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="org.kin.live.live_account.domain.Trans" >
-    insert into trans (id, trans_amt, payer_id, 
-      group_id, pay_time, divide_to, 
-      per_amt, memo, image
-      )
-    values (#{id,jdbcType=INTEGER}, #{transAmt,jdbcType=DECIMAL}, #{payerId,jdbcType=VARCHAR}, 
-      #{groupId,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{divideTo,jdbcType=INTEGER}, 
-      #{perAmt,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="org.kin.live.live_account.domain.Trans" useGeneratedKeys="true" keyProperty="id" >
+    insert into trans (trans_amt, payer_id, group_id, 
+      pay_time, divide_to, per_amt, 
+      memo, image)
+    values (#{transAmt,jdbcType=DECIMAL}, #{payerId,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{divideTo,jdbcType=INTEGER}, #{perAmt,jdbcType=DECIMAL}, 
+      #{memo,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.kin.live.live_account.domain.Trans" >
+  <insert id="insertSelective" parameterType="org.kin.live.live_account.domain.Trans" useGeneratedKeys="true" keyProperty="id" >
     insert into trans
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="transAmt != null" >
         trans_amt,
       </if>
@@ -145,9 +140,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="transAmt != null" >
         #{transAmt,jdbcType=DECIMAL},
       </if>

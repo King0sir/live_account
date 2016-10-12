@@ -36,14 +36,16 @@
         <table schema="" tableName="user" domainObjectName="User">
             <property name="useActualColumnNames" value="false"/>
         </table>
-        <table schema="" tableName="group" domainObjectName="Group">
+        <table schema="" tableName="groups" domainObjectName="Groups">
             <property name="useActualColumnNames" value="false"/>
         </table>
         <table schema="" tableName="trans" domainObjectName="Trans">
             <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
         <table schema="" tableName="trans_ext" domainObjectName="TransExt">
             <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>
 </generatorConfiguration>

@@ -3,7 +3,7 @@
 <mapper namespace="org.kin.live.live_account.dao.TransExtMapper" >
   <resultMap id="BaseResultMap" type="org.kin.live.live_account.domain.TransExt" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="trans_id" property="transId" jdbcType="DECIMAL" />
+    <result column="trans_id" property="transId" jdbcType="INTEGER" />
     <result column="group_id" property="groupId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
   </resultMap>
@@ -98,18 +98,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="org.kin.live.live_account.domain.TransExt" >
-    insert into trans_ext (id, trans_id, group_id, 
-      user_id)
-    values (#{id,jdbcType=INTEGER}, #{transId,jdbcType=DECIMAL}, #{groupId,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="org.kin.live.live_account.domain.TransExt" useGeneratedKeys="true" keyProperty="id" >
+    insert into trans_ext (trans_id, group_id, user_id
+      )
+    values (#{transId,jdbcType=INTEGER}, #{groupId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="org.kin.live.live_account.domain.TransExt" >
+  <insert id="insertSelective" parameterType="org.kin.live.live_account.domain.TransExt" useGeneratedKeys="true" keyProperty="id" >
     insert into trans_ext
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="transId != null" >
         trans_id,
       </if>
@@ -121,11 +118,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="transId != null" >
-        #{transId,jdbcType=DECIMAL},
+        #{transId,jdbcType=INTEGER},
       </if>
       <if test="groupId != null" >
         #{groupId,jdbcType=VARCHAR},
@@ -148,7 +142,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.transId != null" >
-        trans_id = #{record.transId,jdbcType=DECIMAL},
+        trans_id = #{record.transId,jdbcType=INTEGER},
       </if>
       <if test="record.groupId != null" >
         group_id = #{record.groupId,jdbcType=VARCHAR},
@@ -164,7 +158,7 @@
   <update id="updateByExample" parameterType="map" >
     update trans_ext
     set id = #{record.id,jdbcType=INTEGER},
-      trans_id = #{record.transId,jdbcType=DECIMAL},
+      trans_id = #{record.transId,jdbcType=INTEGER},
       group_id = #{record.groupId,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -175,7 +169,7 @@
     update trans_ext
     <set >
       <if test="transId != null" >
-        trans_id = #{transId,jdbcType=DECIMAL},
+        trans_id = #{transId,jdbcType=INTEGER},
       </if>
       <if test="groupId != null" >
         group_id = #{groupId,jdbcType=VARCHAR},
@@ -188,7 +182,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.kin.live.live_account.domain.TransExt" >
     update trans_ext
-    set trans_id = #{transId,jdbcType=DECIMAL},
+    set trans_id = #{transId,jdbcType=INTEGER},
       group_id = #{groupId,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

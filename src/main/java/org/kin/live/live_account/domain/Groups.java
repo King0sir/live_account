@@ -1,8 +1,10 @@
 package org.kin.live.live_account.domain;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.Date;
 
-public class Group {
+public class Groups {
     private String id;
 
     private String name;
@@ -51,5 +53,10 @@ public class Group {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

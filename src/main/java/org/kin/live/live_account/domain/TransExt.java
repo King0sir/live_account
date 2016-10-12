@@ -3,7 +3,7 @@ package org.kin.live.live_account.domain;
 public class TransExt {
     private Integer id;
 
-    private Long transId;
+    private Integer transId;
 
     private String groupId;
 
@@ -17,11 +17,11 @@ public class TransExt {
         this.id = id;
     }
 
-    public Long getTransId() {
+    public Integer getTransId() {
         return transId;
     }
 
-    public void setTransId(Long transId) {
+    public void setTransId(Integer transId) {
         this.transId = transId;
     }
 

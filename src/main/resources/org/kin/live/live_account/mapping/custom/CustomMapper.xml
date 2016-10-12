@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.kin.live.live_account.dao.custom.CustomMapper">
+
+    <resultMap id="simpleUser" type="org.kin.live.live_account.pojo.SimpleUser">
+        <result column="id" property="userId" jdbcType="VARCHAR"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectSimpleUserByGroups" parameterType="java.lang.String" resultMap="simpleUser" useCache="true">
+        SELECT
+	        `user`.id AS id,
+        	`user`.nick_name AS nick_name
+        FROM
+        	`groups`
+        INNER JOIN `user` ON `groups`.user_id = `user`.id
+        WHERE
+        	`groups`.id = #{groupId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getTotalAmt" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+        select sum(trans.trans_amt)
+        from trans INNER JOIN trans_ext on trans.id = trans_ext.trans_id
+        where trans_ext.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <resultMap id="hisTransResult" type="org.kin.live.live_account.pojo.HisTrans">
+        <result column="trans_amt" property="transAmt" jdbcType="DECIMAL"/>
+        <result column="payer" property="payer" jdbcType="VARCHAR"/>
+        <result column="pay_time" property="payTime" jdbcType="VARCHAR"/>
+        <result column="per_amt" property="perAmt" jdbcType="DECIMAL"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="hisTransCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+          count(1)
+        FROM
+        trans
+        INNER JOIN trans_ext ON trans.id = trans_ext.trans_id
+        WHERE
+        trans_ext.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="hisTrans" parameterType="java.util.Map" resultMap="hisTransResult">
+        SELECT
+            trans.trans_amt/100.0 AS trans_amt,
+            `user`.nick_name AS payer,
+            LEFT (trans.pay_time,10) AS pay_time,
+            trans.per_amt/100.0 AS per_amt,
+            trans.memo AS memo,
+            trans.image AS image
+        FROM
+            trans
+        INNER JOIN trans_ext ON trans.id = trans_ext.trans_id
+        INNER JOIN `user` ON trans.payer_id = `user`.id
+        WHERE
+        	trans_ext.user_id = #{userId,jdbcType=VARCHAR}
+        limit #{startIndex,jdbcType=INTEGER},#{count,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="groupsResult" type="org.kin.live.live_account.domain.Groups" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="enable" property="enable" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="searchGroupsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM groups
+        <if test="name != null">
+            WHERE name LIKE #{name,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="searchGroups" parameterType="java.util.Map" resultMap="groupsResult">
+        SELECT     id, name, user_id, enable, create_time
+        FROM groups
+        <if test="name != null">
+        WHERE name LIKE #{name,jdbcType=VARCHAR}
+        </if>
+        limit #{startIndex,jdbcType=INTEGER},#{count,jdbcType=INTEGER}
+    </select>
+</mapper>

@@ -174,52 +174,52 @@ public class TransExtExample {
             return (Criteria) this;
         }
 
-        public Criteria andTransIdEqualTo(Long value) {
+        public Criteria andTransIdEqualTo(Integer value) {
             addCriterion("trans_id =", value, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdNotEqualTo(Long value) {
+        public Criteria andTransIdNotEqualTo(Integer value) {
             addCriterion("trans_id <>", value, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdGreaterThan(Long value) {
+        public Criteria andTransIdGreaterThan(Integer value) {
             addCriterion("trans_id >", value, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andTransIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("trans_id >=", value, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdLessThan(Long value) {
+        public Criteria andTransIdLessThan(Integer value) {
             addCriterion("trans_id <", value, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdLessThanOrEqualTo(Long value) {
+        public Criteria andTransIdLessThanOrEqualTo(Integer value) {
             addCriterion("trans_id <=", value, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdIn(List<Long> values) {
+        public Criteria andTransIdIn(List<Integer> values) {
             addCriterion("trans_id in", values, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdNotIn(List<Long> values) {
+        public Criteria andTransIdNotIn(List<Integer> values) {
             addCriterion("trans_id not in", values, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdBetween(Long value1, Long value2) {
+        public Criteria andTransIdBetween(Integer value1, Integer value2) {
             addCriterion("trans_id between", value1, value2, "transId");
             return (Criteria) this;
         }
 
-        public Criteria andTransIdNotBetween(Long value1, Long value2) {
+        public Criteria andTransIdNotBetween(Integer value1, Integer value2) {
             addCriterion("trans_id not between", value1, value2, "transId");
             return (Criteria) this;
         }
