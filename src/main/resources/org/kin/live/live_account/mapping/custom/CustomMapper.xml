@@ -59,4 +59,29 @@
         	trans_ext.user_id = #{userId,jdbcType=VARCHAR}
         limit #{startIndex,jdbcType=INTEGER},#{count,jdbcType=INTEGER}
     </select>
+
+    <resultMap id="groupsResult" type="org.kin.live.live_account.domain.Groups" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="enable" property="enable" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="searchGroupsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM groups
+        <if test="name != null">
+            WHERE name LIKE #{name,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="searchGroups" parameterType="java.util.Map" resultMap="groupsResult">
+        SELECT     id, name, user_id, enable, create_time
+        FROM groups
+        <if test="name != null">
+        WHERE name LIKE #{name,jdbcType=VARCHAR}
+        </if>
+        limit #{startIndex,jdbcType=INTEGER},#{count,jdbcType=INTEGER}
+    </select>
 </mapper>

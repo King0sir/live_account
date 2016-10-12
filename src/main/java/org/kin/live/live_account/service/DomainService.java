@@ -1,5 +1,6 @@
 package org.kin.live.live_account.service;
 
+import com.alibaba.druid.util.StringUtils;
 import org.kin.live.live_account.dao.GroupsMapper;
 import org.kin.live.live_account.dao.UserMapper;
 import org.kin.live.live_account.dao.custom.CustomMapper;
@@ -133,5 +134,23 @@ public class DomainService {
             return new ArrayList<HisTrans>();
         }
         return hisTransList;
+    }
+
+    public List<Groups> getGroups(String name,PageTool pageTool){
+        Map map = new HashMap();
+        if(!StringUtils.isEmpty(name)){
+            map.put("name","%"+name+"%");
+        }
+        map.put("startIndex",pageTool.getStartIndex());
+        map.put("count",pageTool.getCount());
+
+        Integer total = customMapper.searchGroupsCount(map);
+        pageTool.setTotalCount(total);
+
+        List<Groups> groupsList = customMapper.searchGroups(map);
+        if(CollectionUtils.isEmpty(groupsList)){
+            return new ArrayList<>();
+        }
+        return groupsList;
     }
 }

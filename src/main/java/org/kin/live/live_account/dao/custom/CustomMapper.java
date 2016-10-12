@@ -1,5 +1,6 @@
 package org.kin.live.live_account.dao.custom;
 
+import org.kin.live.live_account.domain.Groups;
 import org.kin.live.live_account.pojo.HisTrans;
 import org.kin.live.live_account.pojo.SimpleUser;
 
@@ -19,4 +20,8 @@ public interface CustomMapper {
     public Integer hisTransCount(Map map);
 
     public List<HisTrans> hisTrans(Map map);
+
+    public Integer searchGroupsCount(Map map);
+
+    public List<Groups> searchGroups(Map map);
 }

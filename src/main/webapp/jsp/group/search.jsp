@@ -11,19 +11,18 @@
 minimum-scale=1.0, maximum-scale=2.0" />
 <html>
 <head>
-    <title>History</title>
+    <title>Group</title>
     <%@include file="../include/common.jsp" %>
 </head>
 <body>
-    <div id="showGroup" align="center">用户名:<div style="color: red; display: inline"><h2 style="display:inline">${user.nickName}</h2></div></div>
+    <br/>
+    <div id="showGroup" align="center">名称：<input type="text" id="searchName" name="searchName"/>&nbsp;<br/><input type="button" value="搜 索" onclick="searchName($('#searchName').val())"/> </div></div>
     <br/>
     <div align="center">
-        <table id="hisTrans" cellspacing="5">
+        <table id="groups" cellspacing="5">
             <tr>
-                <td>时间</td>
-                <td>分摊金额</td>
-                <td>付款人</td>
-                <td>备注</td>
+                <td colspan="3">名称</td>
+                <td>操作</td>
             </tr>
             <tr>
                 <td><input type="button" value="上一页" onclick="newPage(${pageTool.page}-1)"/> </td>
@@ -36,13 +35,17 @@ minimum-scale=1.0, maximum-scale=2.0" />
 </body>
 <script type="application/javascript">
     $(document).ready(function(){
-        var hisTransList = '${hisTransList}';
-        var json = JSON.parse(hisTransList);
+        $('#searchName').val('${name}');
+
+        var groupsList = '${groupsList}';
+        var json = JSON.parse(groupsList);
         for(var i = 0;i<json.length;i++){
-            var row = '<tr><td>'+json[i].payTime+'</td><td>'+json[i].perAmt+'</td><td>'+json[i].payer+'</td><td>'+json[i].memo+'</td></tr>';
-            addTr("hisTrans",-2,row);
+            var name = json[i].name;
+            var userId = '${userId}';
+            var row = '<tr><td colspan="3">'+name+'</td><td><a href="join?userId='+userId+'&groupName='+name+'">加入</a> </td></tr>';
+            addTr("groups",-2,row);
         }
-        console.log(hisTransList);
+        console.log(groupsList);
     });
 
     function addTr(tab, row, trHtml){
@@ -60,9 +63,20 @@ minimum-scale=1.0, maximum-scale=2.0" />
     function newPage(page){
         var totalPage = ${pageTool.totalPage};
         if( page >= 1 && page <= totalPage){
-            var userId = '${user.id}';
-            location.href="trans/history?userId="+userId+"&page="+page;
+            var userId = '${userId}';
+            var name = $('#searchName').val();
+            location.href="search?userId="+userId+"&name="+name+"&page="+page;
         }
+    }
+
+    function searchName(name){
+        var userId = '${userId}';
+        location.href="search?userId="+userId+"&name="+name+"&page=1";
+    }
+
+    function join(groupName){
+        var userId = '${userId}';
+        location.href="join?userId="+userId+"&groupName="+groupName;
     }
 </script>
 </html>

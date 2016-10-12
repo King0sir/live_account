@@ -49,6 +49,17 @@ public class ValidateService {
         throw BaseException.getException(GroupsException.class,GroupsException.ExceptCode.ExistGroupName.getMessage());
     }
 
+    public void validateJoinGroupName(String groupName) throws BaseException{
+        GroupsExample example = new GroupsExample();
+        GroupsExample.Criteria criteria = example.createCriteria();
+        criteria.andNameEqualTo(groupName);
+        List<Groups> groupsList = groupsMapper.selectByExample(example);
+        if(!CollectionUtils.isEmpty(groupsList)){
+            return;
+        }
+        throw BaseException.getException(GroupsException.class,GroupsException.ExceptCode.NoGroup.getMessage());
+    }
+
     public void transParamsValidate(HttpServletRequest request) throws TransException {
         String payTime = request.getParameter("payTime");
         String transAmt = request.getParameter("transAmt");

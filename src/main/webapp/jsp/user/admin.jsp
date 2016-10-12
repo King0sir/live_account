@@ -130,8 +130,9 @@ minimum-scale=1.0, maximum-scale=2.0" />
     }
 
     function searchGroup(){
-        alert("筹备中");
-        location.href="group/search";
+//        alert("筹备中");
+        var userId = '${user.id}';
+        location.href="group/search?userId="+userId+"&name=&page=1";
     }
 
     function queryGroup(){
