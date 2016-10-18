@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class LoginAction {
     private DomainService domainService;
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest request) throws BaseException {
+    public String login(HttpServletRequest request, HttpServletResponse response) throws BaseException {
         String userStr = request.getParameter("user");
         String password = request.getParameter("password");
         User user =domainService.getUser(userStr);
